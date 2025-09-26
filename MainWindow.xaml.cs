@@ -11,18 +11,30 @@ using System.Windows.Shapes;
 
 namespace headFirst
 {
+    using System.Windows.Threading;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        DispatcherTimer timer=new DispatcherTimer();
+        int tenthsOfSecondElapsed;
+        int matchesFound;
+
         public MainWindow()
         {
             InitializeComponent();
 
+            timer.Interval = TimeSpan.FromSeconds(.1);
+            timer.Tick += Timer_Tick;
             SetUpGame();
         }
 
+        private void Timer_Tick(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+//ОСТАНОВИЛСЯ НА 81 странице 5-7 пункт
         private void SetUpGame()
         {
             List<string> animalEmoji = new List<string>()
@@ -68,6 +80,14 @@ namespace headFirst
             {
                 lastTextBlockClicked.Visibility = Visibility.Visible;
                 findingMatch = false;
+            }
+        }
+
+        private void TextBlock_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            if (matchesFound == 8)
+            {
+                SetUpGame();
             }
         }
     }
